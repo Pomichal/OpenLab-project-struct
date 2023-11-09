@@ -530,7 +530,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 682892856}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 656100795}
+        m_TargetAssemblyTypeName: MenuScreen, Assembly-CSharp
+        m_MethodName: StartButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &682892856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1180,6 +1192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d560c4c47be857ea5549a6c90d8cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screens: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

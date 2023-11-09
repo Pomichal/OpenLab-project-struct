@@ -4,4 +4,10 @@ using UnityEngine;
 
 public class MenuScreen : ScreenBase
 {
+
+    public void StartButtonClicked()
+    {
+        App.gameManager.LoadScene("InGameScene");
+        Hide();
+    }
 }
