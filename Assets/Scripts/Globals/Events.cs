@@ -7,4 +7,6 @@ public class Events : MonoBehaviour
 {
 
     // holds all global (static) events
+    //
+    public static UnityEvent onPlayerDeath = new UnityEvent();
 }

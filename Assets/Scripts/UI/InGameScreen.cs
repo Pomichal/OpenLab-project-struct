@@ -8,5 +8,6 @@ public class InGameScreen : ScreenBase
     public void ReturnToMenu()
     {
         App.gameManager.UnloadScene("Level1", new ShowScreenCommand<MenuScreen>());
+        Hide();
     }
 }

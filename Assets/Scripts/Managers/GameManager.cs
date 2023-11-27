@@ -14,7 +14,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         LoadScene("UIScene", false, new ShowScreenCommand<MenuScreen>());
+        Events.onPlayerDeath.AddListener(GameOver);
 
+    }
+
+    void GameOver()
+    {
+        App.screenManager.Hide<InGameScreen>();
+        UnloadScene("Level1", new ShowScreenCommand<MenuScreen>());
     }
 
     public void LoadScene(string sceneName, bool setAsActive=false, ICommand sceneLoadedCommand = null)
