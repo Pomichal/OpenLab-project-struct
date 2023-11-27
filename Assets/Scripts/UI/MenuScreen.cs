@@ -7,7 +7,7 @@ public class MenuScreen : ScreenBase
 
     public void StartButtonClicked()
     {
-        App.gameManager.LoadScene("InGameScene");
+        App.gameManager.LoadScene("Level1", true, new ShowScreenCommand<InGameScreen>());
         Hide();
     }
 }

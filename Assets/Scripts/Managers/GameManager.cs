@@ -13,17 +13,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        LoadScene("UIScene");
+        LoadScene("UIScene", false, new ShowScreenCommand<MenuScreen>());
 
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, bool setAsActive=false, ICommand sceneLoadedCommand = null)
     {
         // call the coroutine
-        StartCoroutine(LoadSceneAsync(sceneName));
+        StartCoroutine(LoadSceneAsync(sceneName, setAsActive, sceneLoadedCommand));
     }
 
-    IEnumerator LoadSceneAsync(string sceneName)
+    public void UnloadScene(string sceneName, ICommand sceneUnloadedCommand=null)
+    {
+        StartCoroutine(UnloadSceneAsync(sceneName, sceneUnloadedCommand));
+    }
+
+    IEnumerator LoadSceneAsync(string sceneName, bool setAsActive=false, ICommand sceneLoadedCommand = null)
     {
         AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         asyncOp.allowSceneActivation = false;
@@ -33,12 +38,24 @@ public class GameManager : MonoBehaviour
             {
                 asyncOp.allowSceneActivation = true;
             }
-            yield return null; // caka jeden frame
+            yield return null; // waits one frame
         }
 
+        // scene is loaded
+        if(setAsActive)
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        sceneLoadedCommand?.Execute();
+    }
 
-        // todo: refactor
-        App.screenManager.Show<MenuScreen>();
+    IEnumerator UnloadSceneAsync(string sceneName, ICommand sceneUnloadedCommand=null)
+    {
+        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
+        while (!asyncUnload.isDone)
+        {
+            yield return null;
+        }
+        // scene unloaded
 
+        sceneUnloadedCommand?.Execute();
     }
 }
